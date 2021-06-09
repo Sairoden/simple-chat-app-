@@ -22,11 +22,14 @@ app.use(express.static(publicDirectoryPath));
 io.on("connection", socket => {
   console.log("New connection!");
 
-  socket.emit("message", generateMessage("Welcome!"));
-  socket.broadcast.emit(
-    "message",
-    generateMessage("Let's welcome a new user!")
-  );
+  socket.on("join", ({ username, room }) => {
+    socket.join(room);
+
+    socket.emit("message", generateMessage("Welcome!"));
+    socket.broadcast
+      .to(room)
+      .emit("message", generateMessage(`Let's welcome ${username}!`));
+  });
 
   socket.on("sendMessage", (message, acknowledge) => {
     const filter = new Filter();
@@ -34,7 +37,7 @@ io.on("connection", socket => {
     if (filter.isProfane(message))
       return acknowledge("Please do not use any foul words.");
 
-    io.emit("message", generateMessage(message));
+    io.to("My Love").emit("message", generateMessage(message));
     acknowledge();
   });
 
@@ -46,7 +49,7 @@ io.on("connection", socket => {
     io.emit(
       "locationMessage",
       generateLocationMessage(
-        `https://google.com/maps?q=${location.latitude},${location.longitude}`,
+        `https://google.com/maps?q=${location.latitude},${location.longitude}`
       )
     );
 
