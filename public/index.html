@@ -4,28 +4,36 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./img/chat-icon.png" type="image/x-icon" />
     <link rel="stylesheet" href="/css/styles.css" />
     <script defer src="./socket.io/socket.io.js"></script>
     <script defer src="./js/chat.js"></script>
-    <title>Document</title>
+    <title>Sairoden Chat</title>
   </head>
   <body>
     <div class="centered-form">
       <div class="centered-form__box">
-        <h1>Hop in!</h1>
+        <h1>Let's Talk!</h1>
         <form action="/chat.html">
-          <label for="username">Display Name</label>
+          <label class="form__label" for="username">Display Name</label>
           <input
+            class="form__input"
             type="text"
             name="username"
             placeholder="Display Name"
             required
           />
 
-          <label for="room">Room</label>
-          <input type="text" name="room" placeholder="Room" required />
+          <label class="form__label" for="room">Room</label>
+          <input
+            class="form__input"
+            type="text"
+            name="room"
+            placeholder="Room"
+            required
+          />
 
-          <button>Join</button>
+          <button class="btn btn__form">Join Now!</button>
         </form>
       </div>
     </div>

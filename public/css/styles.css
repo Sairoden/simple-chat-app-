@@ -1,183 +1,322 @@
 /* General Styles */
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 16px;
+  font-size: 16px;
 }
 
 input {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 body {
-    line-height: 1.4;
-    color: #333333;
-    font-family: Helvetica, Arial, sans-serif;
+  line-height: 1.4;
+  color: #333333;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
 h1 {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
+  text-align: center;
 }
 
 label {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 8px;
-    color: #777;
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #777;
 }
 
 input {
-    border: 1px solid #eeeeee;
-    padding: 12px;
-    outline: none;
+  border: 1px solid #eeeeee;
+  padding: 12px;
+  outline: none;
 }
 
 button {
-    cursor: pointer;
-    padding: 12px;
-    background: #7C5CBF;
-    border: none;
-    color: white;
-    font-size: 16px;
-    transition: background .3s ease;
+  cursor: pointer;
+  padding: 12px;
+  background: #55c57a;
+  border: none;
+  color: white;
+  font-size: 16px;
+  transition: background 0.3s ease;
+  border-radius: 10px;
 }
 
-button:hover {
-    background: #6b47b8;
+.user-img {
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 50%;
+  margin-right: 1rem;
+}
+
+.nav__el,
+.nav__el:link,
+.nav__el:visited {
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  text-decoration: none;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+  font-weight: 400;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+.nav__el:hover,
+.nav__el:active {
+  -webkit-transform: translateY(-2px);
+  transform: translateY(-2px);
+}
+.nav__el:not(:last-child) {
+  margin-right: 3rem;
+}
+
+.nav__el:focus {
+  outline: none;
+}
+.nav__el--cta {
+  padding: 1rem 3rem;
+  border-radius: 10rem;
+  border: 1px solid currentColor !important;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.nav__el--cta:hover {
+  color: #777;
+  text-shadow: none;
+  border-color: #f7f7f7;
+}
+
+.btn,
+.btn:link,
+.btn:visited {
+  font-size: 1.6rem;
+  padding: 1.4rem 5rem;
+  border-radius: 10rem;
+  text-transform: uppercase;
+  display: inline-block;
+  text-decoration: none;
+  position: relative;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  font-weight: 400;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  /*Add later when we use this for the button in form*/
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  -webkit-transform: translateY(-3px);
+  transform: translateY(-3px);
+  -webkit-box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  -webkit-transform: translateY(-1px);
+  transform: translateY(-1px);
+  -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.btn:focus {
+  outline: none;
+  background-color: #2e864b;
+}
+
+.btn__form {
+  width: 50%;
+  display: flex;
+  margin-top: 5rem;
+  margin-left: 8rem;
+}
+
+.form__input {
+  display: block;
+  font-family: inherit;
+  font-size: 1.5rem;
+  color: inherit;
+  padding: 1.25rem 1.75rem;
+  border: none;
+  width: 100%;
+  background-color: #fff;
+  background-color: #f2f2f2;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  /* Pseudo element (a visible thing that isn't really in the DOM).
+        Also needs -ms- */
+}
+.form__input:focus {
+  outline: none;
+  border-bottom: 3px solid #55c57a;
+}
+.form__input:focus:invalid {
+  border-bottom: 3px solid #ff7730;
+}
+.form__input::-webkit-input-placeholder {
+  color: #bbb;
+}
+
+.form__label {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+/* button:hover {
+  background: #6b47b8;
 }
 
 button:disabled {
-    cursor: default;
-    background: #7c5cbf94;
-}
+  cursor: default;
+  background: #55c57a94;
+} */
 
 /* Join Page Styles */
 
 .centered-form {
-    background: #333744;
-    width: 100vw;
-    height: 100vh;   
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background: #333744;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .centered-form__box {
-    box-shadow: 0px 0px 17px 1px #1D1F26;
-    background: #F7F7FA;
-    padding: 24px;
-    width: 250px;
+  box-shadow: 0px 0px 17px 1px #1d1f26;
+  background: #f7f7fa;
+  padding: 24px;
+  width: 40rem;
+  height: 35rem;
 }
-
+/* 
 .centered-form button {
-    width: 100%;
-}
+  width: 100%;
+} */
 
 .centered-form input {
-    margin-bottom: 16px;
-    width: 100%;
+  margin-bottom: 35px;
+  width: 100%;
 }
 
 /* Chat Page Layout */
 
 .chat {
-    display: flex;
+  display: flex;
 }
 
 .chat__sidebar {
-    height: 100vh;
-    color: white;
-    background: #333744;
-    width: 225px;
-    overflow-y: scroll
+  height: 100vh;
+  color: white;
+  background: #333744;
+  width: 225px;
+  overflow-y: scroll;
 }
 
 /* Chat styles */
 
 .chat__main {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    max-height: 100vh;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
 }
 
 .chat__messages {
-    flex-grow: 1;
-    padding: 24px 24px 0 24px;
-    overflow-y: scroll;
+  flex-grow: 1;
+  padding: 24px 24px 0 24px;
+  overflow-y: scroll;
 }
 
 /* Message Styles */
 
 .message {
-    margin-bottom: 16px;   
+  margin-bottom: 16px;
 }
 
 .message__name {
-    font-weight: 600;
-    font-size: 14px;
-    margin-right: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  margin-right: 8px;
 }
 
 .message__meta {
-    color: #777;
-    font-size: 14px;
+  color: #777;
+  font-size: 14px;
 }
 
 .message a {
-    color: #0070CC;
+  color: #0070cc;
 }
 
 /* Message Composition Styles */
 
 .compose {
-    display: flex;
-    flex-shrink: 0;
-    margin-top: 16px;
-    padding: 24px;
+  display: flex;
+  flex-shrink: 0;
+  margin-top: 16px;
+  padding: 24px;
 }
 
 .compose form {
-    display: flex;
-    flex-grow: 1;
-    margin-right: 16px;
+  display: flex;
+  flex-grow: 1;
+  margin-right: 16px;
 }
 
 .compose input {
-    border: 1px solid #eeeeee;
-    width: 100%;
-    padding: 12px;
-    margin: 0 16px 0 0;
-    flex-grow: 1;
+  border: 1px solid #eeeeee;
+  width: 100%;
+  padding: 12px;
+  margin: 0 16px 0 0;
+  flex-grow: 1;
 }
 
 .compose button {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 /* Chat Sidebar Styles */
 
 .room-title {
-    font-weight: 400;
-    font-size: 22px;
-    background: #2c2f3a;
-    padding: 24px;   
+  font-weight: 400;
+  font-size: 22px;
+  background: #2c2f3a;
+  padding: 24px;
 }
 
 .list-title {
-    font-weight: 500;
-    font-size: 18px;
-    margin-bottom: 4px;
-    padding: 12px 24px 0 24px;
+  font-weight: 500;
+  font-size: 18px;
+  margin-bottom: 4px;
+  padding: 12px 24px 0 24px;
 }
 
 .users {
-    list-style-type: none;
-    font-weight: 300;
-    padding: 12px 24px 0 24px;
+  list-style-type: none;
+  font-weight: 300;
+  padding: 12px 24px 0 24px;
 }

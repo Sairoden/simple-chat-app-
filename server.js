@@ -37,12 +37,24 @@ io.on("connection", socket => {
 
     socket.emit(
       "message",
-      generateMessage(`Hey ${user.username}, welcome to the Official Server of ${user.room}!
-    `)
+      generateMessage(
+        "Admin",
+        `Hey ${user.username}, welcome to the Official Server of ${user.room}!
+    `
+      )
     );
+
     socket.broadcast
       .to(user.room)
-      .emit("message", generateMessage(`Let's welcome ${user.username}!`));
+      .emit(
+        "message",
+        generateMessage("Admin", `Let's welcome ${user.username}!`)
+      );
+
+    io.to(user.room).emit("roomData", {
+      room: user.room,
+      users: getUsersInRoom(user.room),
+    });
 
     acknowledge();
   });
@@ -61,11 +73,17 @@ io.on("connection", socket => {
   socket.on("disconnect", () => {
     const user = removeUser(socket.id);
 
-    if (user)
+    if (user) {
       io.to(user.room).emit(
         "message",
         generateMessage(`${user.username} left the room`)
       );
+
+      io.to(user.room).emit("roomData", {
+        room: user.room,
+        users: getUsersInRoom(user.room),
+      });
+    }
   });
 
   socket.on("sendLocation", (location, acknowledge) => {

@@ -4,14 +4,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./img/chat-icon.png" type="image/x-icon" />
     <link rel="stylesheet" href="/css/styles.css" />
     <script defer src="./socket.io/socket.io.js"></script>
     <script defer src="./js/chat.js"></script>
-    <title>Document</title>
+    <title>Sairoden Chat</title>
   </head>
   <body>
     <div class="chat">
-      <div class="chat__sidebar"></div>
+      <div id="sidebar" class="chat__sidebar"></div>
 
       <div class="chat__main">
         <div id="messages" class="chat__messages"></div>
@@ -19,41 +20,56 @@
         <div class="compose">
           <form id="message-form">
             <input
+              class="form__input"
               type="text"
               name="message"
               placeholder="Message"
               required
               autocomplete="off"
             />
-            <button>Send</button>
+            <button class="btn">Send</button>
           </form>
-          <button id="send-location">Send your location</button>
+          <button class="btn" id="send-location">Send your location</button>
         </div>
       </div>
     </div>
 
     <script id="message-template" type="text/html">
       <div class="message">
-        <p>
-          <span class="message__name">{{username}}</span>
-          <span class="message__meta">{{createdAt}}</span>
-        </p>
-
+        <div class="nav__el">
+          <img class="user-img" src="./img/default.jpg" alt="default picture" />
+          <p>
+            <span class="message__name">{{username}}</span>
+            <span class="message__meta">{{createdAt}}</span>
+          </p>
+        </div>
         <p>{{message}}</p>
       </div>
     </script>
 
     <script id="location-message-template" type="text/html">
       <div class="message">
-        <p>
-          <span class="message__name">{{username}}</span>
-          <span class="message__meta">{{createdAt}}</span>
-        </p>
-
+        <div class="nav__el">
+          <img class="user-img" src="./img/default.jpg" alt="default picture" />
+          <p>
+            <span class="message__name">{{username}}</span>
+            <span class="message__meta">{{createdAt}}</span>
+          </p>
+        </div>
         <p>
           <a href="{{url}}" target="_blank">My current location</a>
         </p>
       </div>
+    </script>
+
+    <script id="sidebar-template" type="text/html">
+      <h2 class="room-title">{{room}}</h2>
+      <h3 class="list-title">Users</h3>
+      <ul class="users">
+        {{#users}}
+        <li>{{username}}</li>
+        {{/users}}
+      </ul>
     </script>
 
     <script
