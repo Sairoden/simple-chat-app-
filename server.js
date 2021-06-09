@@ -5,6 +5,11 @@ const express = require("express");
 const socketio = require("socket.io");
 const Filter = require("bad-words");
 
+const {
+  generateMessage,
+  generateLocationMessage,
+} = require("./utils/messages.js");
+
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -17,8 +22,11 @@ app.use(express.static(publicDirectoryPath));
 io.on("connection", socket => {
   console.log("New connection!");
 
-  socket.emit("message", "Welcome");
-  socket.broadcast.emit("message", "Let's welcome a new user!");
+  socket.emit("message", generateMessage("Welcome!"));
+  socket.broadcast.emit(
+    "message",
+    generateMessage("Let's welcome a new user!")
+  );
 
   socket.on("sendMessage", (message, acknowledge) => {
     const filter = new Filter();
@@ -26,18 +34,20 @@ io.on("connection", socket => {
     if (filter.isProfane(message))
       return acknowledge("Please do not use any foul words.");
 
-    io.emit("message", message);
+    io.emit("message", generateMessage(message));
     acknowledge();
   });
 
   socket.on("disconnect", () => {
-    io.emit("message", "User left the room");
+    io.emit("message", generateMessage("User left the room"));
   });
 
   socket.on("sendLocation", (location, acknowledge) => {
     io.emit(
-      "message",
-      `https://google.com/maps?q=${location.latitude},${location.longitude}`
+      "locationMessage",
+      generateLocationMessage(
+        `https://google.com/maps?q=${location.latitude},${location.longitude}`,
+      )
     );
 
     acknowledge();
