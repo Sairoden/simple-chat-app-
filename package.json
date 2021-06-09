@@ -1,18 +1,21 @@
 {
   "name": "chat-app",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Chat application",
+  "default": "public/index.html",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "build": "parcel build index.html --dist-dir ./dist"
   },
   "author": "Sairoden Gandarosa",
   "license": "ISC",
   "dependencies": {
     "bad-words": "^3.0.4",
     "express": "^4.17.1",
+    "helmet": "^4.6.0",
     "moment": "^2.29.1",
+    "parcel": "^2.0.0-nightly.714",
     "pug": "^3.0.2",
     "qs": "^6.10.1",
     "socket.io": "^4.1.2"

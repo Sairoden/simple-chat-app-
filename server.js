@@ -17,17 +17,15 @@ const {
 } = require("./utils/users");
 
 const app = express();
+
 const server = http.createServer(app);
 const io = socketio(server);
 
 const port = process.env.PORT || 3000;
 const publicDirectoryPath = path.join(__dirname, "./public");
-
 app.use(express.static(publicDirectoryPath));
 
 io.on("connection", socket => {
-  console.log("New connection!");
-
   socket.on("join", (options, acknowledge) => {
     const { error, user } = addUser({ id: socket.id, ...options });
 
@@ -39,8 +37,7 @@ io.on("connection", socket => {
       "message",
       generateMessage(
         "Admin",
-        `Hey ${user.username}, welcome to the Official Server of ${user.room}!
-    `
+        `Hey ${user.username}, welcome to the Official Server of ${user.room}!`
       )
     );
 
@@ -88,6 +85,7 @@ io.on("connection", socket => {
 
   socket.on("sendLocation", (location, acknowledge) => {
     const user = getUser(socket.id);
+
     io.to(user.room).emit(
       "locationMessage",
       generateLocationMessage(

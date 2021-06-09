@@ -38,29 +38,29 @@ const autoScroll = () => {
 
   if (containerHeight - newMessageHeight <= scrollOffset)
     messages.scrollTop = messages.scrollHeight;
-
-  console.log(newMessageMargin);
 };
 
 socket.on("message", message => {
-  console.log(message);
   const html = Mustache.render(messageTemplate, {
     username: message.username,
     message: message.text,
     createdAt: moment(message.createdAt).format("h:mm a"),
   });
+
   messages.insertAdjacentHTML("beforeend", html);
+
   autoScroll();
 });
 
 socket.on("locationMessage", message => {
-  console.log(message);
   const html = Mustache.render(locationMessageTemplate, {
     username: message.username,
     url: message.url,
     createdAt: moment(message.createdAt).format("h:mm a"),
   });
+
   messages.insertAdjacentHTML("beforeend", html);
+
   autoScroll();
 });
 
@@ -88,8 +88,6 @@ messageForm.addEventListener("submit", e => {
 
     // enable
     if (error) return console.log(error);
-
-    console.log("Message delivered!");
   });
 });
 
@@ -105,7 +103,6 @@ sendLocationButton.addEventListener("click", () => {
 });
 
 const success = position => {
-  console.log(position);
   socket.emit(
     "sendLocation",
     {
