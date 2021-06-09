@@ -35,7 +35,11 @@ io.on("connection", socket => {
 
     socket.join(user.room);
 
-    socket.emit("message", generateMessage("Welcome!"));
+    socket.emit(
+      "message",
+      generateMessage(`Hey ${user.username}, welcome to the Official Server of ${user.room}!
+    `)
+    );
     socket.broadcast
       .to(user.room)
       .emit("message", generateMessage(`Let's welcome ${user.username}!`));
@@ -44,12 +48,13 @@ io.on("connection", socket => {
   });
 
   socket.on("sendMessage", (message, acknowledge) => {
+    const user = getUser(socket.id);
     const filter = new Filter();
 
     if (filter.isProfane(message))
       return acknowledge("Please do not use any foul words.");
 
-    io.to("My Love").emit("message", generateMessage(message));
+    io.to(user.room).emit("message", generateMessage(user.username, message));
     acknowledge();
   });
 
@@ -64,9 +69,11 @@ io.on("connection", socket => {
   });
 
   socket.on("sendLocation", (location, acknowledge) => {
-    io.emit(
+    const user = getUser(socket.id);
+    io.to(user.room).emit(
       "locationMessage",
       generateLocationMessage(
+        user.username,
         `https://google.com/maps?q=${location.latitude},${location.longitude}`
       )
     );
