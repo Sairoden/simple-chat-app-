@@ -8,7 +8,13 @@ const Filter = require("bad-words");
 const {
   generateMessage,
   generateLocationMessage,
-} = require("./utils/messages.js");
+} = require("./utils/messages");
+const {
+  addUser,
+  removeUser,
+  getUser,
+  getUsersInRoom,
+} = require("./utils/users");
 
 const app = express();
 const server = http.createServer(app);
@@ -22,13 +28,19 @@ app.use(express.static(publicDirectoryPath));
 io.on("connection", socket => {
   console.log("New connection!");
 
-  socket.on("join", ({ username, room }) => {
-    socket.join(room);
+  socket.on("join", (options, acknowledge) => {
+    const { error, user } = addUser({ id: socket.id, ...options });
+
+    if (error) return acknowledge(error);
+
+    socket.join(user.room);
 
     socket.emit("message", generateMessage("Welcome!"));
     socket.broadcast
-      .to(room)
-      .emit("message", generateMessage(`Let's welcome ${username}!`));
+      .to(user.room)
+      .emit("message", generateMessage(`Let's welcome ${user.username}!`));
+
+    acknowledge();
   });
 
   socket.on("sendMessage", (message, acknowledge) => {
@@ -42,7 +54,13 @@ io.on("connection", socket => {
   });
 
   socket.on("disconnect", () => {
-    io.emit("message", generateMessage("User left the room"));
+    const user = removeUser(socket.id);
+
+    if (user)
+      io.to(user.room).emit(
+        "message",
+        generateMessage(`${user.username} left the room`)
+      );
   });
 
   socket.on("sendLocation", (location, acknowledge) => {
